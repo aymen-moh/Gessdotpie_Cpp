@@ -10,11 +10,17 @@ int flip(int balance, int bet){
     else{// loss
         balance -= bet;
     }
-
+    return balance;
 
 
 }
 int main(){
-    
+    int balance = 100;
+    int bet;
+    std::cout << "You Have $" << balance << ". Enter your bet: ";
+    std::cin >> bet;
+    balance = flip(balance, bet);
+    std::cout << "New balance: $" << balance;
+    return 0;
 
 }
