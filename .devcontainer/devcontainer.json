@@ -1,0 +1,16 @@
+{
+  "name": "C++ Only Environment",
+  "image": "://microsoft.com",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-extension-pack",
+        "twxs.cmake",
+        "eamodio.gitlens",
+        "usernamehw.errorlens"
+      ]
+    }
+  }
+}
+
