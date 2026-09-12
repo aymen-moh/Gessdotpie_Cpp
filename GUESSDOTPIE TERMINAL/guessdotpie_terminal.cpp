@@ -19,10 +19,14 @@ int main(){
     int hlpnum = (sizeof(games)/sizeof(std::string)) + 1;
     int endnum = (sizeof(games)/sizeof(std::string)) + 2;
     std::cout << "Welcome To GessDotPIE!\n\n";
-    std::cout << "What Game Would You Like To Play?\n";
-    std::cout << "1. Flip\n";
-    std::cout << hlpnum << ". Help\n";
-    std::cout << endnum << ". Exit\n";
+    int selection;
+    do{
+        std::cout << "What Game Would You Like To Play?\n";
+        std::cout << "1. Flip\n";
+        std::cout << hlpnum << ". Help\n";
+        std::cout << endnum << ". Exit\n\n";
+        std::cin >> selection;1
+    }while(selection != endnum);
     // i will propably add more later hehe
 
     return 0;
