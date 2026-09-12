@@ -15,12 +15,15 @@ int flip(int balance, int bet){
 
 }
 int main(){
-    int balance = 100;
-    int bet;
-    std::cout << "You Have $" << balance << ". Enter your bet: ";
-    std::cin >> bet;
-    balance = flip(balance, bet);
-    std::cout << "New balance: $" << balance;
-    return 0;
+    std::string games[] = {"flip"};
+    int hlpnum = (sizeof(games)/sizeof(std::string)) + 1;
+    int endnum = (sizeof(games)/sizeof(std::string)) + 2;
+    std::cout << "Welcome To GessDotPIE!\n\n";
+    std::cout << "What Game Would You Like To Play?\n";
+    std::cout << "1. Flip\n";
+    std::cout << hlpnum << ". Help\n";
+    std::cout << endnum << ". Exit\n";
+    // i will propably add more later hehe
 
+    return 0;
 }
