@@ -1,5 +1,5 @@
 #include <iostream>
-#include 
+#include <cmath>
 int checkbet(int bet, int balance){
     if(bet < 0){
         return 1;
@@ -43,7 +43,7 @@ int flip(int balance, int bet){
 // AAAAal right fresh start what game should i add next...
 // adding rolllllll
 
-int roll(int balance, int bet, int target, int over){ // for the direction i used int because i like working with them i never like working with strings in a function argument for some reason
+int roll(int balance, int bet, double target, int over){
     
     while(checkbet(bet, balance) == 1){
         std::cout << "Invalid bet!\n";
@@ -67,14 +67,48 @@ int roll(int balance, int bet, int target, int over){ // for the direction i use
     // i have decided it is better to enter the bet here so the main function only calls the funciton <---- nvm
     if(over == 1){ //calculates the multiplier for the over direction
         double mult = 100 / (100 - target);
-        srand(time(NULL))
+        srand(time(NULL));
         int rollednum = rand() % 100 + 1;
         if(rollednum > target){
-            std::cout << "Rolled: " << rollednum << "!\n"
-            std::cout << "You Won with a multiplier of x" << mult
+            std::cout << "Rolled: " << rollednum << "!\n";
+            int winnings = bet * mult; 
+            int np = winnings - bet;
+            std::cout << "You Won with a multiplier of x" <<  std::round(mult * 100.0) / 100.0 << "\n";
+            balance += np;
+            std::cout << "| Winnings: $" << winnings << " | Net profit: $" << np  << " | New balance: $" << balance << " | \n";
+        }
+
+        else if(rollednum <= target){
+            std::cout << "Rolled: " << rollednum << "!\n";
+            int winnings = bet * mult; 
+            int np = -bet;
+            std::cout << "You lost - balance: $" << balance;
+            balance += np;
+            
+           
         }
     }
-
+    else if(over == 0){ //calculates the multiplier for the under direction
+        double mult = 100 / target;
+        srand(time(NULL));
+        int rollednum = rand() % 100 + 1;
+        if(rollednum < target){
+            std::cout << "Rolled: " << rollednum << "!\n";
+            int winnings = bet * mult; 
+            int np = winnings - bet;
+            std::cout << "You Won with a multiplier of x" <<  std::round(mult * 100.0) / 100.0 << "\n";
+            balance += np;
+            std::cout << "| Winnings: $" << winnings << " | Net profit: $" << np  << " | New balance: $" << balance << " | \n";
+        }
+        else if(rollednum >= target){
+            std::cout << "Rolled: " << rollednum << "!\n";
+            int winnings = bet * mult; 
+            balance -= bet;
+            std::cout << "You lost - balance: $" << balance << '\n';
+            
+        }
+    }
+    return balance;
     
     
 }
@@ -82,7 +116,7 @@ int roll(int balance, int bet, int target, int over){ // for the direction i use
 
 
 int main(){// my main code is not currently here because i thought it'd be easier to make my new game
-    
+    std::cout << roll(100, 100, 70, 0);
 
     return 0;
 }
