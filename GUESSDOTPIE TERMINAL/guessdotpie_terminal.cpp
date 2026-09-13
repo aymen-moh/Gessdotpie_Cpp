@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include 
 int checkbet(int bet, int balance){
     if(bet < 0){
         return 1;
@@ -15,6 +15,10 @@ int checkbet(int bet, int balance){
     }
     
 }
+
+
+
+
 // i will start my games with the simplest of all: double or nothing (coin flip)
 int flip(int balance, int bet){
     while(checkbet(bet, balance) == 1){
@@ -33,34 +37,52 @@ int flip(int balance, int bet){
         std::cout << "You Lost!\nNew Balance: $" << balance << '\n';
     }
     return balance;
-
-
 }
-int main(){
-    int balance = 100;
-    int bet;
-    std::string games[] = {"flip"};
-    int hlpnum = (sizeof(games)/sizeof(std::string)) + 1;
-    int endnum = (sizeof(games)/sizeof(std::string)) + 2;
-    std::cout << "Welcome To GessDotPIE!\n\n";
-    int selection;
-    do{
-        std::cout << "What Game Would You Like To Play?\n";
-        std::cout << "1. Flip\n";
-        std::cout << hlpnum << ". Help\n";
-        std::cout << endnum << ". Exit\n\n";
-        std::cin >> selection;
-        switch(selection){
-            case 1:
-            std::cout << "You Selected Flip!\n";
-            std::cout << "Balance: $" << balance << '\n';
-            std::cout << "Enter Your Bet Amount: $";
-            std::cin >> bet;
-            balance = flip(balance, bet);
 
+
+// AAAAal right fresh start what game should i add next...
+// adding rolllllll
+
+int roll(int balance, int bet, int target, int over){ // for the direction i used int because i like working with them i never like working with strings in a function argument for some reason
+    
+    while(checkbet(bet, balance) == 1){
+        std::cout << "Invalid bet!\n";
+        std::cout << "Enter bet\n";
+        std::cin >> bet;
+    }
+
+    // i am not going to add this check in a function but if another game needs it i will propable do it
+    while(target < 5 or target > 99){
+        if(target < 5){
+        std::cout << "The target can't be less than five!\n";
+        std::cin >> target;
         }
-    }while(selection != endnum);
-    // i will propably add more later hehe
+        else if(target < 5){
+            std::cout << "The target can't be more than 99!\n";
+            std::cin >> target;
+        }
+
+    }
+
+    // i have decided it is better to enter the bet here so the main function only calls the funciton <---- nvm
+    if(over == 1){ //calculates the multiplier for the over direction
+        double mult = 100 / (100 - target);
+        srand(time(NULL))
+        int rollednum = rand() % 100 + 1;
+        if(rollednum > target){
+            std::cout << "Rolled: " << rollednum << "!\n"
+            std::cout << "You Won with a multiplier of x" << mult
+        }
+    }
+
+    
+    
+}
+
+
+
+int main(){// my main code is not currently here because i thought it'd be easier to make my new game
+    
 
     return 0;
 }
