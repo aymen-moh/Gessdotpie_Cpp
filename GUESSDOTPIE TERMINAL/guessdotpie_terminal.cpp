@@ -81,9 +81,9 @@ int roll(int balance, int bet, double target, int over){
         else if(rollednum <= target){
             std::cout << "Rolled: " << rollednum << "!\n";
             int winnings = bet * mult; 
-            int np = -bet;
+            balance -= bet;
             std::cout << "You lost - balance: $" << balance;
-            balance += np;
+            
             
            
         }
@@ -116,7 +116,6 @@ int roll(int balance, int bet, double target, int over){
 
 
 int main(){// my main code is not currently here because i thought it'd be easier to make my new game
-    std::cout << roll(100, 100, 70, 0);
-
+    roll(1000, 100,70, 1);
     return 0;
 }
