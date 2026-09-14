@@ -113,9 +113,101 @@ int roll(int balance, int bet, double target, int over){
     
 }
 
+// adding my last game (propably wont be my last game if sfml isnt supported by github codespaces)
 
+int hilo(int balance, int bet){
+    while(checkbet(bet, balance) == 1){
+        std::cout << "Invalid bet!\n";
+        std::cout << "Enter bet\n";
+        std::cin >> bet;
+    }
+    bool lost = false;
+    bool cashedout = false;
+    do{
+
+        
+        srand(time(NULL));
+        int randnum = rand() % 13 + 1;
+        std::cout << "The number is: \n" << randnum << '\n';
+        std::cout << "Over (o) or Under (u) or Cash out (c)? \n";
+        std::string choice;
+        std::cin >> choice;
+        while(choice != "o" and choice != "u" and choice != "c"){
+            std::cout << "Enter a valid choice! (o, u, c)";
+            std::cin >> choice;
+        }
+        if(choice == "o"){
+            int randnum2 = rand() % 13 + 1;
+            double mult = 1;
+
+            if(randnum2 > randnum){
+                
+
+                std::cout << "You Won! -- current Multiplier: x" << mult << " -- Potential winningss: " << bet * mult << '\n';
+                mult += 0.1;
+            }
+            else{
+                std::cout << "You Lost!\n";
+                lost = true;
+            }
+        }
+    }while(!lost and !cashedout);
+
+
+
+
+}   
 
 int main(){// my main code is not currently here because i thought it'd be easier to make my new game
-    roll(1000, 100,70, 1);
+    int balance = 100;
+    int bet;
+    std::string games[] = {"flip", "roll"};
+    int hlpnum = (sizeof(games)/sizeof(std::string)) + 1;
+    int endnum = (sizeof(games)/sizeof(std::string)) + 2;
+    std::cout << "Welcome To GessDotPIE!\n\n";
+    int selection;
+    do{
+        std::cout << "What Game Would You Like To Play?\n";
+        std::cout << "1. Flip\n";
+        std::cout << "2. roll\n";
+        std::cout << hlpnum << ". Help\n";
+        std::cout << endnum << ". Exit\n\n";
+        std::cin >> selection;
+        switch(selection){
+            case 1:
+            std::cout << "You Selected Flip!\n";
+            std::cout << "Balance: $" << balance << '\n';
+            std::cout << "Enter Your Bet Amount: $";
+            std::cin >> bet;
+            balance = flip(balance, bet);
+            break;
+
+            case 2:
+            std::cout << "You Selected roll!\n";
+            std::cout << "Balance: $" << balance << '\n';
+            std::cout << "Enter Your Bet Amount: $";
+            std::cin >> bet;
+            std::cout << "Enter target: ";
+            double target;
+            std::cin >> target;
+            int over = 2;
+            do{
+                std::cout << "over or under? ";
+                std::string overS; // over string cuz were sending 1 or 0 and it will be int
+                std::cin >> overS;
+                
+                if(overS == "over"){
+                    over = 1;
+                }
+                else if(overS == "under"){
+                    over = 0;
+                }
+            }while(over != 0 and over != 1);
+                             
+            balance = roll(balance, bet, target, over);
+        }
+            
+    }while(selection != endnum);
+    // i will propably add more later hehe
     return 0;
 }
