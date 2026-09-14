@@ -123,11 +123,12 @@ int hilo(int balance, int bet){
     }
     bool lost = false;
     bool cashedout = false;
+    double mult = 1;
+    srand(time(NULL));
+    int randnum = rand() % 13 + 1;
     do{
 
         
-        srand(time(NULL));
-        int randnum = rand() % 13 + 1;
         std::cout << "The number is: \n" << randnum << '\n';
         std::cout << "Over (o) or Under (u) or Cash out (c)? \n";
         std::string choice;
@@ -138,21 +139,45 @@ int hilo(int balance, int bet){
         }
         if(choice == "o"){
             int randnum2 = rand() % 13 + 1;
-            double mult = 1;
+            
 
             if(randnum2 > randnum){
                 
-
-                std::cout << "You Won! -- current Multiplier: x" << mult << " -- Potential winningss: " << bet * mult << '\n';
                 mult += 0.1;
+                std::cout << "You Won! -- current Multiplier: x" << mult << " -- Potential winningss: " << bet * mult << '\n';
+                
             }
             else{
                 std::cout << "You Lost!\n";
+                mult = 0;
                 lost = true;
             }
+            randnum = randnum2;
         }
-    }while(!lost and !cashedout);
+        else if(choice == "u"){
+            int randnum2 = rand() % 13  + 1;
+            
+            if(randnum2 < randnum){
+                mult += 0.1;
+                std::cout << "You Won! -- current Multiplier: x" << mult << " -- Potential winningss: " << bet * mult << '\n';
+                
+            }
+            else{
+                std::cout << "You Lost!\n";
+                mult = 0;
+                lost = true;
+            }
+            randnum = randnum2;
+        }
+        else if(choice == "c"){
+            std::cout << "Cashed out with a multiplier of x" << mult << '\n';
+            balance += bet * mult;
+            std::cout << "Current balance: " << balance;
 
+        }
+
+    }while(!lost and !cashedout);
+    return balance;
 
 
 
@@ -161,7 +186,7 @@ int hilo(int balance, int bet){
 int main(){// my main code is not currently here because i thought it'd be easier to make my new game
     int balance = 100;
     int bet;
-    std::string games[] = {"flip", "roll"};
+    std::string games[] = {"flip", "roll", "hilo"};
     int hlpnum = (sizeof(games)/sizeof(std::string)) + 1;
     int endnum = (sizeof(games)/sizeof(std::string)) + 2;
     std::cout << "Welcome To GessDotPIE!\n\n";
@@ -170,6 +195,7 @@ int main(){// my main code is not currently here because i thought it'd be easie
         std::cout << "What Game Would You Like To Play?\n";
         std::cout << "1. Flip\n";
         std::cout << "2. roll\n";
+        std::cout << "3. hilo\n";
         std::cout << hlpnum << ". Help\n";
         std::cout << endnum << ". Exit\n\n";
         std::cin >> selection;
@@ -190,7 +216,8 @@ int main(){// my main code is not currently here because i thought it'd be easie
             std::cout << "Enter target: ";
             double target;
             std::cin >> target;
-            int over = 2;
+            int over;
+            over = 2;
             do{
                 std::cout << "over or under? ";
                 std::string overS; // over string cuz were sending 1 or 0 and it will be int
@@ -205,6 +232,12 @@ int main(){// my main code is not currently here because i thought it'd be easie
             }while(over != 0 and over != 1);
                              
             balance = roll(balance, bet, target, over);
+            break;
+            case 3:
+            std::cout << "You chose hilo!\n";
+            std::cout << "Enter Bet: ";
+            std::cin >> bet;
+            balance = hilo(balance, bet);
         }
             
     }while(selection != endnum);
